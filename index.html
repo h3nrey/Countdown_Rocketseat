@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coutdown</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Coutdown</h1>
+        </header>
+        <main>
+            <div class="container-centered">
+                <h2>READY TO LAUNCH IN...</h2>
+            </div>
+            <div class="time-container">
+                <div class="container-centered">
+                    Dias <div class="time" id="days">02</div>
+                </div>
+                <div class="container-centered">
+                    Horas <div class="time" id="hours">02</div>
+                </div>
+                <div class="container-centered">
+                    Minutos <div class="time" id="minutes">02</div>
+                </div>
+                <div class="container-centered">
+                    Segundos <div class="time" id="seconds">02</div>
+                </div>
+            </div>
+            <div class="subscribe-message-container container-centered">
+                <p>Inscreva-se para saber mais sobre o lançamento</p>
+            </div>
+            <div class="button-container container-centered">
+                <button id="subscribe">Inscreva-se</button>
+            </div>
+        </main>
+    </div>
+    <div id="form-container" class="hidden">
+        <form id="subscribe-form" action="#">
+            <fieldset>
+                <h2>Faça parte desse evento imperdível</h2>
+
+                <div class="name-wrapper">
+                    <label for="input-name">Nome</label>
+                    <input type="text" name="" id="input-name">
+                </div>
+                
+                <div class="email-wrapper">
+                    <label for="input-email">Email</label>
+                <input type="email" name="" id="input-email">
+                </div>
+                
+
+                <button type="submit">Enviar</button>
+            </fieldset>
+        </form>
+
+        <button class="close-button">
+            X
+        </button>
+    </div>
+    <script>
+        let time = 172800;
+        let days =  1;
+        let seconds = 60;
+        let minutes = 59;
+        let hours = 23;
+        
+        console.log(`${days} dias : ${hours} horas : ${minutes} : ${seconds}`)
+
+        function setupTime() {
+            if(time > 0) {
+                time -=1;
+                seconds--;
+                console.log("minutes " + minutes);
+                if(seconds == 0) {
+                    minutes-=1;
+                    seconds=60;
+                }
+
+                if (minutes == 0) {
+                    hours--;
+                    minutes=60;
+                }
+
+                if (hours == 0) {
+                    days--;
+                    hours = 24
+                }
+
+                console.log(`${days} dias : ${hours} horas : minutos ${minutes} : segundos ${seconds}`)
+                putOnHTML(days, hours,minutes, seconds)
+            }
+        }
+        
+        function putOnHTML(d, h, m, s) {
+            const times = [d,h,m,s]
+            const timeTexts = document.querySelectorAll(".time");
+            for (let index = 0; index < timeTexts.length; index++) {
+                timeTexts[index].textContent = times[index];                
+            }
+        }
+        setInterval(setupTime, 1000);
+
+        
+    </script>
+
+    <script>
+        const btn = document.querySelector("#subscribe");
+        btn.addEventListener('click', () => {
+            const container = document.querySelector(".container");
+            container.classList.toggle("hidden");
+            document.querySelector("#form-container").classList.toggle('hidden');
+        });
+
+        const closeBtn = document.querySelector(".close-button");
+        closeBtn.addEventListener('click', () => {
+            const container = document.querySelector(".container");
+            container.classList.toggle("hidden");
+            document.querySelector("#form-container").classList.toggle('hidden');
+
+        })
+
+    </script>
+</body>
+</html>
